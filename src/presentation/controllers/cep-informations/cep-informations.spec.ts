@@ -6,9 +6,10 @@ import type {
   CepInformations,
   GetCepInformations,
 } from "../../../domain/usecases/get-cep-informations";
+import type { HttpRequest } from "./cep-informations-protocols";
 
-const makeFakeHttpRequest = () => ({
-  body: {
+const makeFakeHttpRequest = (): HttpRequest => ({
+  params: {
     cep: "any_cep",
   },
 });
@@ -110,7 +111,7 @@ describe("CepInformations Controller", () => {
     const httpRequest = makeFakeHttpRequest();
     await sut.handle(httpRequest);
 
-    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body);
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest.params);
   });
 
   test("should return 400 if Validation returns an error", async () => {

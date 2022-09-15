@@ -15,13 +15,13 @@ export class CepInformationsController implements Controller {
 
   public async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const error = this.validation.validate(httpRequest.body);
+      const error = this.validation.validate(httpRequest.params);
 
       if (error) {
         return badRequest(error);
       }
 
-      const { cep } = httpRequest.body;
+      const { cep } = httpRequest.params;
       const informations = await this.getCepInformations.get(cep);
 
       if (!informations) {
